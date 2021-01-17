@@ -1,4 +1,4 @@
-from CitationParser import CitationParser
+# from CitationParser import CitationParser
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
