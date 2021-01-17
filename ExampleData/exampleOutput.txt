@@ -1,0 +1,30 @@
+root - INFO - No RWDB results found for: 
+	An interactive web-based dashboard to track COVID-19 in real time
+	under query: An interactive web-based dashboard to track COVID-19 in real time
+
+
+root - INFO - No RWDB results found for: 
+	Dying in a Leadership Vacuum. N Engl J Med 383, 1479–1480 (2020)
+	under query: Dying in a Leadership Vacuum. N Engl J Med 383, 1479–1480 (2020)
+
+
+root - INFO - Possible retraction for: 5G Technology and induction of coronavirus in skin cells
+<span class="totalItems">1 Item(s) Found</span>
+<span class="rTitleNotIE">5G Technology and induction of coronavirus in skin cells</span>
+<span class="rSubject">(BLS) Toxicology; (HSC) Medicine - Infectious Disease; </span>
+<span class="rJournal" style="white-space:normal"><span class="rJournal">Journal of Biological Regulators and Homeostatic Agents ---</span><span class="rPublisher">Biolife</span></span>
+<span class="rJournal">Journal of Biological Regulators and Homeostatic Agents ---</span>
+<span class="rPublisher">Biolife</span>
+<span class="rInstitution" style="border-top-style: solid; border-top-width: 2px;">Department of Nuclear, Sub-Nuclear and Radiaton Physics G. Marconi University, Rome, Italy</span>
+<span class="rInstitution">
+Central Michigan Saginaw, Michigan, USA</span>
+<span class="rInstitution" style="border-bottom: 2px solid rgb(0, 102, 33);">
+Department of Dermatology and Venereology, I M Sechenov First Moscow State Medical University, Moscow, Russia</span>
+<span class="rNature">10.23812/20-269-E-4</span>
+<span class="rNature">10.23812/20-269-E-4R</span>
+<span class="rNature">Retraction</span>
+<span>Italy<br/>Russia<br/>United States<br/><span class="rPaywalled">No</span></span>
+<span class="rPaywalled">No</span>
+<div class="rReason">+Fake Peer Review</div>
+<div class="rReason">+Investigation by Journal/Publisher</div>
+<div class="rReason" style="border-bottom-style: none;">+Withdrawal</div>
