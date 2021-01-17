@@ -17,14 +17,13 @@ def parseAmpersand(s):
     # first, we split on the ampersand:
     #> ['Oran, D.P. ', ' Topol, E.J. Prevalence of Asymptomatic SARS-CoV-2 Infection : A Narrative Review. Ann Intern Med 173, 362']
     # now we can grab the second index to get a title with a stray author, and split it on the first comma to remove part of the name
-    tokens = tokens[1].split(",", 1)
+    # tokens = tokens[1].split(",", 1)
     #> [' Topol', ' E.J. Prevalence of Asymptomatic SARS-CoV-2 Infection : A Narrative Review. Ann Intern Med 173, 362']
-    print(tokens)
     # we split that one the second space
     #> ['', 'E.J.', 'Prevalence of Asymptomatic SARS-CoV-2 Infection : A Narrative Review. Ann Intern Med 173, 362']
-    tokens = tokens[1].split(" ", 2)#[-1]
+    # tokens = tokens[1].split(" ", 2)#[-1]
     # the author-free title is the last element in that list
-    return tokens[-1]
+    return tokens[1].split(",", 1)[1].split(" ", 2)[-1]
 
     # return tokens[1].split(",", 1)[1].split(" ", 2)[-1]
 
@@ -45,7 +44,6 @@ def parseSingleAuthor(s):
     # the first step is the same for both but step is conditional on the comma to deal with author first/last
     tokens = s.split(" ", 1)
     #> ['FDA.', 'EUA Authorized Serology Test Performance. United States Food and Drug Administration https://www.fda.gov/medical-devices/coronavirus-disease-2019-covid-19-emergency-use-authorizations-medical-devices/eua-authorized-serology-test-performance (2020).']
-    print(tokens)
     # a comma means we have single author, not institution like FDA
     #> Looi, M.K. Covid-19: Is a second wave hitting Europe? BMJ 371, m4113 (2020).
     # which at this point would be
@@ -82,8 +80,9 @@ def clean(s):
         s = s.replace("?", ".")
         return s.split(".", 1)[0].strip()
     
-    log.info('cleaning: \n\t' + s)
+    log.info('cleaning: \n\t\t' + s)
     s = removeAuthors(s)
-    log.info('Removing authors ->\n\t' + s)
-    # s = removeJournal(s)
-    # log.info('Removing Journal (final interpretation) ->\n\t' + s)
+    log.info('Removing authors...\t\n->\t' + s)
+    s = removeJournal(s)
+    log.info('Removing Journal (final interpretation)...\t\n->\t' + s + '\n')
+    return s

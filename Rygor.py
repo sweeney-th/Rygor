@@ -1,5 +1,30 @@
-from CitationParser import CitationParser
+from RygorTools import RygorTools
+
 import logging as log
+
+import time
+import argparse
+
+
+
+# get commandl ine arguments
+parser = argparse.ArgumentParser(description='Rygor')
+
+parser.add_argument(
+  "-i", "--input",
+  help = "a .txt file in the format shown in /ExampleData/exampleCleanCitations",
+  default = None
+)
+
+parser.add_argument(
+  "-im", "--medRxiv",
+  help = "EXTREMELY experimental feature to search for retractions in the citations of a medRxiv by webscraping them and using them as input",
+  default = None
+)
+
+args = parser.parse_args()
+
+
 
 # configure logger
 log.basicConfig(
@@ -9,7 +34,31 @@ log.basicConfig(
   format ='%(name)s - %(levelname)s - %(message)s'
 )
 
-a = 'Oran, D.P. & Topol, E.J. Prevalence of Asymptomatic SARS-CoV-2 Infection : A Narrative Review. Ann Intern Med 173, 362'
-e = 'Havers, F.P. et al. Seroprevalence of Antibodies to SARS-CoV-2 in 10 Sites in the United States, March 23-May 12, 2020. JAMA Intern Med (2020). '
-m = 'FDA. EUA Authorized Serology Test Performance. United States Food and Drug Administration https://www.fda.gov/medical-devices/coronavirus-disease-2019-covid-19-emergency-use-authorizations-medical-devices/eua-authorized-serology-test-performance (2020).'
-CitationParser.clean('Looi, M.K. Covid-19: Is a second wave hitting Europe? BMJ 371, m4113 (2020).')
+
+
+if args.input is not None:
+    clean = False
+    citations = [l for l in open(str(args.input), "r")]
+
+if args.medRxiv is not None:
+    clean = True
+    citations = RygorTools.getCitationsFromMedrxivURL(args.medRxiv)
+
+for i, cit in enumerate(citations):
+    if i % 5 == 0:
+        time.sleep(5)
+    result = RygorTools.queryRWDB(cit, clean = clean)
+    soup = result.soup
+    tables = soup.find_all("tbody")
+    dataTable = RygorTools.getResultsTable(soup)
+    # TODO find a way to tidy the up
+    if dataTable is not None:
+        log.info(
+            "Possible retraction for: " + result.paperInput + "\n" +
+            "\n".join([str(i) for i in RygorTools.getResultsTableData(dataTable)])
+        )
+    else:
+        log.info(
+            "No RWDB results found for: \n\t" + result.paperInput +
+            "\n\tunder query: " + result.queryString + "\n"
+        )
