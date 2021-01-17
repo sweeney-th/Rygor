@@ -3,9 +3,8 @@ from RygorTools import RygorTools
 import logging as log
 
 import time
+import sys
 import argparse
-
-
 
 # get commandl ine arguments
 parser = argparse.ArgumentParser(description='Rygor')
@@ -16,15 +15,7 @@ parser.add_argument(
   default = None
 )
 
-parser.add_argument(
-  "-im", "--medRxiv",
-  help = "EXTREMELY experimental feature to search for retractions in the citations of a medRxiv by webscraping them and using them as input",
-  default = None
-)
-
 args = parser.parse_args()
-
-
 
 # configure logger
 log.basicConfig(
@@ -34,15 +25,11 @@ log.basicConfig(
   format ='%(name)s - %(levelname)s - %(message)s'
 )
 
-
-
 if args.input is not None:
     clean = False
     citations = [l for l in open(str(args.input), "r")]
-
-if args.medRxiv is not None:
-    clean = True
-    citations = RygorTools.getCitationsFromMedrxivURL(args.medRxiv)
+else:
+  sys.exit("An input file is needed")
 
 for i, cit in enumerate(citations):
     if i % 5 == 0:
@@ -60,5 +47,5 @@ for i, cit in enumerate(citations):
     else:
         log.info(
             "No RWDB results found for: \n\t" + result.paperInput +
-            "\n\tunder query: " + result.queryString + "\n"
+            "\tunder query: " + result.queryString + "\n"
         )
